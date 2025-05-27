@@ -5,7 +5,8 @@ import 'package:university_student_application/app/utils/theme.dart';
 
 class RegisterView extends GetView<AuthController> {
 
-  List<String> yearsLables=['First', 'Second', 'Third', 'Fourth','Fifth'];
+  List<String> yearsLables = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +28,7 @@ class RegisterView extends GetView<AuthController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 80,
-                ),
+                SizedBox(height: 80),
                 Container(
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -44,7 +43,7 @@ class RegisterView extends GetView<AuthController> {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Register as Student',
+                  'register_title'.tr,
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -69,7 +68,7 @@ class RegisterView extends GetView<AuthController> {
                   child: Column(
                     children: [
                       Text(
-                        'Student Registration',
+                        'register_student_registration'.tr,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -79,18 +78,18 @@ class RegisterView extends GetView<AuthController> {
                       SizedBox(height: 20),
                       TextField(
                         controller: controller.nameController,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'Name',
+                          labelText: 'register_name'.tr,
                           prefixIcon: Icon(Icons.person),
                         ),
                       ),
                       SizedBox(height: 16),
                       TextField(
                         controller: controller.majorController,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          labelText: 'Major',
+                          labelText: 'register_major'.tr,
                           prefixIcon: Icon(Icons.person),
                         ),
                       ),
@@ -98,13 +97,13 @@ class RegisterView extends GetView<AuthController> {
                       DropdownButtonFormField<int>(
                         value: controller.selectedYear.value,
                         decoration: InputDecoration(
-                          labelText: 'Year',
+                          labelText: 'register_year'.tr,
                           prefixIcon: Icon(Icons.calendar_today),
                         ),
                         items: yearsLables
                             .map((year) => DropdownMenuItem(
-                          value: yearsLables.indexOf(year)+1,
-                          child: Text(year),
+                          value: yearsLables.indexOf(year) + 1,
+                          child: Text(year.tr),
                         ))
                             .toList(),
                         onChanged: (value) {
@@ -116,7 +115,7 @@ class RegisterView extends GetView<AuthController> {
                         controller: controller.universityIdController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'University ID',
+                          labelText: 'register_university_id'.tr,
                           prefixIcon: Icon(Icons.badge),
                         ),
                       ),
@@ -125,19 +124,20 @@ class RegisterView extends GetView<AuthController> {
                         controller: controller.passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: 'Password',
+                          labelText: 'register_password'.tr,
                           prefixIcon: Icon(Icons.lock),
                         ),
                       ),
                       SizedBox(height: 30),
-                      Obx(()=>ElevatedButton(
-                          onPressed: controller.isLoading.value
-                              ? null
-                              : () => controller.register(),
-                          child: Text(
-                            'Register',
-                            style: TextStyle(fontSize: 16),
-                          )),)
+                      Obx(() => ElevatedButton(
+                        onPressed: controller.isLoading.value
+                            ? null
+                            : () => controller.register(),
+                        child: Text(
+                          'register_button'.tr,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      )),
                     ],
                   ),
                 ),
