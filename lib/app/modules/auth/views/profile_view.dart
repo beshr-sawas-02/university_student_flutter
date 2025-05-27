@@ -9,7 +9,7 @@ class ProfileView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Profile'),
+        title: Text('profile_title'.tr),
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
       ),
@@ -17,7 +17,7 @@ class ProfileView extends GetView<AuthController> {
         final student = controller.currentStudent.value;
         if (student == null) {
           return Center(
-            child: Text('Profile not available'),
+            child: Text('profile_not_available'.tr),
           );
         }
 
@@ -28,19 +28,19 @@ class ProfileView extends GetView<AuthController> {
             children: [
               _buildProfileHeader(student.name),
               SizedBox(height: 24),
-              _buildSectionTitle('Personal Information'),
+              _buildSectionTitle('profile_section_personal'.tr),
               _buildInfoCard([
-                _buildInfoRow('Name', student.name),
-                _buildInfoRow('University ID', student.universityId.toString()),
-                _buildInfoRow('Major', student.major),
-                _buildInfoRow('Year', _getYearText(student.year)),
+                _buildInfoRow('profile_name'.tr, student.name),
+                _buildInfoRow('profile_university_id'.tr, student.universityId.toString()),
+                _buildInfoRow('profile_major'.tr, student.major),
+                _buildInfoRow('profile_year'.tr, _getYearText(student.year)),
               ]),
               SizedBox(height: 40),
               Center(
                 child: ElevatedButton.icon(
                   onPressed: () => _confirmLogout(),
                   icon: Icon(Icons.logout),
-                  label: Text('Logout'),
+                  label: Text('profile_logout'.tr),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
@@ -81,7 +81,7 @@ class ProfileView extends GetView<AuthController> {
           ),
           SizedBox(height: 8),
           Text(
-            'Student',
+            'profile_role_student'.tr,
             style: TextStyle(
               fontSize: 16,
               color: Colors.grey,
@@ -155,29 +155,29 @@ class ProfileView extends GetView<AuthController> {
   String _getYearText(int year) {
     switch (year) {
       case 1:
-        return 'First Year';
+        return 'year_first'.tr;
       case 2:
-        return 'Second Year';
+        return 'year_second'.tr;
       case 3:
-        return 'Third Year';
+        return 'year_third'.tr;
       case 4:
-        return 'Fourth Year';
+        return 'year_fourth'.tr;
       case 5:
-        return 'Fifth Year';
+        return 'year_fifth'.tr;
       default:
-        return 'Unknown';
+        return 'year_unknown'.tr;
     }
   }
 
   void _confirmLogout() {
     Get.dialog(
       AlertDialog(
-        title: Text('Logout'),
-        content: Text('Are you sure you want to logout?'),
+        title: Text('logout_dialog_title'.tr),
+        content: Text('logout_dialog_message'.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: Text('CANCEL'),
+            child: Text('logout_dialog_cancel'.tr),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -186,7 +186,7 @@ class ProfileView extends GetView<AuthController> {
             onPressed: () {
               controller.logout();
             },
-            child: Text('LOGOUT'),
+            child: Text('logout_dialog_confirm'.tr),
           ),
         ],
       ),
