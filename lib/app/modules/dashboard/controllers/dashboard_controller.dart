@@ -51,17 +51,17 @@ class DashboardController extends GetxController {
   String getYearText(int year) {
     switch (year) {
       case 1:
-        return 'First Year';
+        return 'first_year'.tr;
       case 2:
-        return 'Second Year';
+        return 'second_year'.tr;
       case 3:
-        return 'Third Year';
+        return 'third_year'.tr;
       case 4:
-        return 'Fourth Year';
+        return 'fourth_year'.tr;
       case 5:
-        return 'Fifth Year';
+        return 'fifth_year'.tr;
       default:
-        return 'Unknown';
+        return 'unknown_year'.tr;
     }
   }
 }

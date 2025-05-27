@@ -29,8 +29,8 @@ class CourseController extends GetxController {
       allCourses.assignAll(courses);
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load courses',
+        'error_title'.tr,
+        'load_courses_failed'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -49,8 +49,8 @@ class CourseController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load open courses',
+        'error_title'.tr,
+        'load_open_courses_failed'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -66,7 +66,6 @@ class CourseController extends GetxController {
       if (course != null) {
         selectedCourse.value = course;
 
-        // Fetch prerequisites if available
         if (course.prerequisites != null && course.prerequisites!.isNotEmpty) {
           await fetchPrerequisites(course.courseCode);
         } else {
@@ -75,8 +74,8 @@ class CourseController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load course details',
+        'error_title'.tr,
+        'load_course_details_failed'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -90,8 +89,8 @@ class CourseController extends GetxController {
       prerequisites.assignAll(prereqs);
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load prerequisites',
+        'error_title'.tr,
+        'load_prerequisites_failed'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     }
@@ -100,17 +99,17 @@ class CourseController extends GetxController {
   String getYearText(int year) {
     switch (year) {
       case AppConstants.FIRST_YEAR:
-        return 'First Year';
+        return 'first_year'.tr;
       case AppConstants.SECOND_YEAR:
-        return 'Second Year';
+        return 'second_year'.tr;
       case AppConstants.THIRD_YEAR:
-        return 'Third Year';
+        return 'third_year'.tr;
       case AppConstants.FOURTH_YEAR:
-        return 'Fourth Year';
+        return 'fourth_year'.tr;
       case AppConstants.FIFTH_YEAR:
-        return 'Fifth Year';
+        return 'fifth_year'.tr;
       default:
-        return 'Unknown';
+        return 'unknown_year'.tr;
     }
   }
 }

@@ -11,7 +11,7 @@ class MarksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Marks'),
+        title: Text('my_marks'.tr),
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
         actions: [
@@ -40,7 +40,7 @@ class MarksView extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'No marks available',
+                    'no_marks_available'.tr,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.grey,
@@ -49,22 +49,20 @@ class MarksView extends StatelessWidget {
                   SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () => controller.fetchMyMarks(),
-                    child: Text('Refresh'),
+                    child: Text('refresh'.tr),
                   ),
                 ],
               ),
             );
           }
 
-          // Group marks by course
           final Map<String, List<dynamic>> courseMarks = {};
-
           for (var mark in controller.myMarks) {
             if (mark.course != null) {
               if (!courseMarks.containsKey(mark.courseId)) {
                 courseMarks[mark.courseId] = [
-                  mark.course, // First element is the course
-                  [], // Second element is the list of marks
+                  mark.course,
+                  [],
                 ];
               }
               courseMarks[mark.courseId]![1].add(mark);
@@ -96,7 +94,7 @@ class MarksView extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'Code: ${course.courseCode}',
+                    '${'code'.tr}: ${course.courseCode}',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
@@ -107,13 +105,12 @@ class MarksView extends StatelessWidget {
                       padding: EdgeInsets.all(16),
                       child: Column(
                         children: [
-                          // Header
                           Row(
                             children: [
                               Expanded(
                                 flex: 2,
                                 child: Text(
-                                  'Type',
+                                  'type'.tr,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: AppTheme.secondaryColor,
@@ -123,7 +120,7 @@ class MarksView extends StatelessWidget {
                               Expanded(
                                 flex: 1,
                                 child: Text(
-                                  'Mark',
+                                  'mark'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -134,7 +131,7 @@ class MarksView extends StatelessWidget {
                               Expanded(
                                 flex: 1,
                                 child: Text(
-                                  'Grade',
+                                  'grade'.tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -145,7 +142,6 @@ class MarksView extends StatelessWidget {
                             ],
                           ),
                           Divider(),
-                          // Marks
                           ...marks.map((mark) {
                             return Padding(
                               padding: EdgeInsets.symmetric(vertical: 8),

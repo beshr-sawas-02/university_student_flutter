@@ -11,7 +11,7 @@ class AvailableCoursesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Available Courses'),
+        title: Text('available_courses'.tr),
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
       ),
@@ -34,7 +34,7 @@ class AvailableCoursesView extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'No courses available',
+                    'no_courses_available'.tr,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.grey,
@@ -43,7 +43,7 @@ class AvailableCoursesView extends StatelessWidget {
                   SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () => controller.fetchOpenCourses(),
-                    child: Text('Refresh'),
+                    child: Text('refresh'.tr),
                   ),
                 ],
               ),
@@ -115,7 +115,7 @@ class AvailableCoursesView extends StatelessWidget {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              'Instructor: ${course.teacher}',
+                              '${'instructor'.tr}: ${course.teacher}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey,
@@ -133,7 +133,7 @@ class AvailableCoursesView extends StatelessWidget {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              'Type: ${course.type}',
+                              '${'type'.tr}: ${course.type}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey,
@@ -151,7 +151,7 @@ class AvailableCoursesView extends StatelessWidget {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              'Semester: ${course.semester}',
+                              '${'semester'.tr}: ${course.semester}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey,
@@ -169,7 +169,7 @@ class AvailableCoursesView extends StatelessWidget {
                                 Get.toNamed('/course-detail');
                               },
                               child: Text(
-                                'View Details',
+                                'view_details'.tr,
                                 style: TextStyle(
                                   color: AppTheme.secondaryColor,
                                 ),

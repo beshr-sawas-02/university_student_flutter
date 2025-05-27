@@ -1,4 +1,3 @@
-// lib/app/modules/votes/controllers/vote_controller.dart
 import 'package:get/get.dart';
 import '../../../data/repositories/vote_repository.dart';
 import '../../../data/repositories/course_repository.dart';
@@ -36,11 +35,7 @@ class VoteController extends GetxController {
         selectedCourseIds.assignAll(votes.first.courseIds);
       }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to load votes',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('error'.tr, 'failed_load_votes'.tr, snackPosition: SnackPosition.BOTTOM);
     } finally {
       isLoading.value = false;
     }
@@ -56,11 +51,7 @@ class VoteController extends GetxController {
         availableCourses.assignAll(courses);
       }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to load available courses',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('error'.tr, 'failed_load_available_courses'.tr, snackPosition: SnackPosition.BOTTOM);
     } finally {
       isLoading.value = false;
     }
@@ -73,22 +64,14 @@ class VoteController extends GetxController {
       if (selectedCourseIds.length < 6) {
         selectedCourseIds.add(courseId);
       } else {
-        Get.snackbar(
-          'Maximum Reached',
-          'You can only select up to 6 courses',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        Get.snackbar('max_reached'.tr, 'max_6_courses'.tr, snackPosition: SnackPosition.BOTTOM);
       }
     }
   }
 
   Future<bool> submitVote() async {
     if (selectedCourseIds.length < 4) {
-      Get.snackbar(
-        'Too Few Courses',
-        'You must select at least 4 courses',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('too_few_courses'.tr, 'min_4_courses'.tr, snackPosition: SnackPosition.BOTTOM);
       return false;
     }
 
@@ -98,38 +81,21 @@ class VoteController extends GetxController {
       bool success;
 
       if (currentVote.value != null) {
-        // Update existing vote
-        success = await _voteRepository.updateVote(
-          currentVote.value!.id!,
-          selectedCourseIds,
-        );
+        success = await _voteRepository.updateVote(currentVote.value!.id!, selectedCourseIds);
       } else {
-        // Create new vote
         success = await _voteRepository.createVote(selectedCourseIds);
       }
 
       if (success) {
-        Get.snackbar(
-          'Success',
-          'Your vote has been submitted',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        Get.snackbar('success'.tr, 'vote_submitted'.tr, snackPosition: SnackPosition.BOTTOM);
         await fetchMyVotes();
       } else {
-        Get.snackbar(
-          'Error',
-          'Failed to submit vote',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        Get.snackbar('error'.tr, 'failed_submit_vote'.tr, snackPosition: SnackPosition.BOTTOM);
       }
 
       return success;
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'An error occurred while submitting your vote',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('error'.tr, 'error_submit_vote'.tr, snackPosition: SnackPosition.BOTTOM);
       return false;
     } finally {
       isLoading.value = false;
@@ -143,27 +109,15 @@ class VoteController extends GetxController {
       final success = await _voteRepository.deleteVote(id);
 
       if (success) {
-        Get.snackbar(
-          'Success',
-          'Your vote has been deleted',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        Get.snackbar('success'.tr, 'vote_deleted'.tr, snackPosition: SnackPosition.BOTTOM);
         await fetchMyVotes();
       } else {
-        Get.snackbar(
-          'Error',
-          'Failed to delete vote',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        Get.snackbar('error'.tr, 'failed_delete_vote'.tr, snackPosition: SnackPosition.BOTTOM);
       }
 
       return success;
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'An error occurred while deleting your vote',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar('error'.tr, 'error_delete_vote'.tr, snackPosition: SnackPosition.BOTTOM);
       return false;
     } finally {
       isLoading.value = false;

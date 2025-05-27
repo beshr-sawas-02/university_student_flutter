@@ -12,7 +12,7 @@ class MyCoursesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Courses'),
+        title: Text('my_courses_title'.tr),
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
       ),
@@ -35,7 +35,7 @@ class MyCoursesView extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'You are not enrolled in any courses',
+                    'no_courses_enrolled'.tr,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.grey,
@@ -44,22 +44,17 @@ class MyCoursesView extends StatelessWidget {
                   SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () => controller.fetchMyMarks(),
-                    child: Text('Refresh'),
+                    child: Text('refresh'.tr),
                   ),
                 ],
               ),
             );
           }
 
-          // Group marks by course
           final Map<String, List<MarkModel.Mark>> courseMarks = {};
-
           for (var mark in controller.myMarks) {
             if (mark.course != null) {
-              if (!courseMarks.containsKey(mark.courseId)) {
-                courseMarks[mark.courseId] = [];
-              }
-              courseMarks[mark.courseId]!.add(mark);
+              courseMarks.putIfAbsent(mark.courseId, () => []).add(mark);
             }
           }
 
@@ -70,12 +65,7 @@ class MyCoursesView extends StatelessWidget {
               final courseId = courseMarks.keys.elementAt(index);
               final marks = courseMarks[courseId]!;
               final course = marks.first.course!;
-
-              // Calculate total mark
-              double totalMark = 0;
-              for (var mark in marks) {
-                totalMark += mark.mark;
-              }
+              double totalMark = marks.fold(0.0, (sum, mark) => sum + mark.mark);
 
               return Card(
                 margin: EdgeInsets.only(bottom: 16),
@@ -102,10 +92,7 @@ class MyCoursesView extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
                               color: AppTheme.primaryColor,
                               borderRadius: BorderRadius.circular(8),
@@ -123,7 +110,7 @@ class MyCoursesView extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       Text(
-                        'Marks',
+                        'marks_title'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -161,7 +148,7 @@ class MyCoursesView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Total',
+                            'total'.tr,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -183,7 +170,7 @@ class MyCoursesView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Grade',
+                            'grade'.tr,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

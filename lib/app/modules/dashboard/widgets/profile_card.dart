@@ -1,6 +1,7 @@
 // lib/app/modules/dashboard/widgets/profile_card.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_student_application/app/modules/auth/views/profile_view.dart';
 import '../controllers/dashboard_controller.dart';
 import '../../../utils/theme.dart';
 
@@ -78,7 +79,7 @@ class ProfileCard extends StatelessWidget {
                 color: AppTheme.secondaryColor,
               ),
               onPressed: () {
-                Get.toNamed('/profile');
+                Get.to(() => ProfileView());
               },
             ),
           ],

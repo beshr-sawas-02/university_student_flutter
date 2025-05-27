@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_student_application/app/modules/language_controller.dart';
+import 'package:university_student_application/app/modules/theme_controller.dart';
 import '../controllers/dashboard_controller.dart';
 import '../../courses/views/available_courses_view.dart';
 import '../../marks/views/marks_view.dart';
@@ -68,6 +69,7 @@ class DashboardView extends GetView<DashboardController> {
   }
 
   Widget _buildHeader() {
+    final ThemeController themeController = Get.find<ThemeController>();
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -100,6 +102,12 @@ class DashboardView extends GetView<DashboardController> {
                     Get.find<LanguageController>().changeLanguage(newLang);
                   },
                 ),
+                // IconButton(
+                //   icon: Icon(themeController.isDarkMode ? Icons.dark_mode : Icons.light_mode, color: Colors.white),
+                //   onPressed: () {
+                //     themeController.toggleTheme();
+                //   },
+                // ),
                 IconButton(
                   icon: Icon(Icons.logout, color: Colors.white),
                   onPressed: () {

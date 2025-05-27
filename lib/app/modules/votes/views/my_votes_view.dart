@@ -1,4 +1,3 @@
-// lib/app/modules/votes/views/my_votes_view.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/vote_controller.dart';
@@ -12,7 +11,7 @@ class MyVotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Votes'),
+        title: Text('my_votes'.tr),
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
       ),
@@ -35,7 +34,7 @@ class MyVotesView extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'You haven\'t voted for any courses yet',
+                    'no_votes_yet'.tr,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.grey,
@@ -44,12 +43,12 @@ class MyVotesView extends StatelessWidget {
                   SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () => Get.toNamed('/create-vote'),
-                    child: Text('Vote Now'),
+                    child: Text('vote_now'.tr),
                   ),
 
                   ElevatedButton(
-                    onPressed: () =>controller.fetchMyVotes(),
-                    child: Text('Vote Now'),
+                    onPressed: () => controller.fetchMyVotes(),
+                    child: Text('vote_now'.tr),
                   ),
                 ],
               ),
@@ -80,7 +79,7 @@ class MyVotesView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Vote #${index + 1}',
+                            'vote_number'.trArgs([ (index + 1).toString() ]),
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -98,7 +97,7 @@ class MyVotesView extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       Text(
-                        'Selected Courses:',
+                        'selected_courses'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -127,7 +126,7 @@ class MyVotesView extends StatelessWidget {
                               ),
                             ),
                             subtitle: Text(
-                              'Code: ${course.courseCode}',
+                              'course_code'.trArgs([course.courseCode]),
                             ),
                           );
                         }).toList()
@@ -143,7 +142,7 @@ class MyVotesView extends StatelessWidget {
                               ),
                             ),
                             title: Text(
-                              'Course ID: $courseId',
+                              'course_id'.trArgs([courseId]),
                             ),
                           );
                         }).toList(),
@@ -158,7 +157,7 @@ class MyVotesView extends StatelessWidget {
                               Get.toNamed('/create-vote');
                             },
                             child: Text(
-                              'Edit',
+                              'edit'.tr,
                               style: TextStyle(
                                 color: AppTheme.secondaryColor,
                               ),
@@ -168,7 +167,7 @@ class MyVotesView extends StatelessWidget {
                           TextButton(
                             onPressed: () => _confirmDeleteVote(vote.id!),
                             child: Text(
-                              'Delete',
+                              'delete'.tr,
                               style: TextStyle(
                                 color: Colors.red,
                               ),
@@ -195,12 +194,12 @@ class MyVotesView extends StatelessWidget {
   void _confirmDeleteVote(String id) {
     Get.dialog(
       AlertDialog(
-        title: Text('Delete Vote'),
-        content: Text('Are you sure you want to delete this vote?'),
+        title: Text('delete_vote'.tr),
+        content: Text('delete_vote_confirm'.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: Text('CANCEL'),
+            child: Text('cancel'.tr),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -210,7 +209,7 @@ class MyVotesView extends StatelessWidget {
               Get.back();
               await controller.deleteVote(id);
             },
-            child: Text('DELETE'),
+            child: Text('delete'.tr),
           ),
         ],
       ),

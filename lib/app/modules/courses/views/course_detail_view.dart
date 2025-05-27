@@ -9,7 +9,7 @@ class CourseDetailView extends GetView<CourseController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Course Details'),
+        title: Text('course_details'.tr),
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
       ),
@@ -19,7 +19,7 @@ class CourseDetailView extends GetView<CourseController> {
         if (course == null) {
           return Center(
             child: Text(
-              'Course not found',
+              'course_not_found'.tr,
               style: TextStyle(fontSize: 18),
             ),
           );
@@ -32,16 +32,16 @@ class CourseDetailView extends GetView<CourseController> {
             children: [
               _buildHeaderCard(course.name, course.courseCode),
               SizedBox(height: 24),
-              _buildSectionTitle('Course Information'),
+              _buildSectionTitle('course_information'.tr),
               _buildInfoCard([
-                _buildInfoRow('Instructor', course.teacher),
-                _buildInfoRow('Type', course.type),
-                _buildInfoRow('Year', controller.getYearText(course.year)),
-                _buildInfoRow('Semester', course.semester),
-                _buildInfoRow('Status', course.isOpen ? 'Open' : 'Closed'),
+                _buildInfoRow('instructor'.tr, course.teacher),
+                _buildInfoRow('type'.tr, course.type),
+                _buildInfoRow('year'.tr, controller.getYearText(course.year)),
+                _buildInfoRow('semester'.tr, course.semester),
+                _buildInfoRow('status'.tr, course.isOpen ? 'open'.tr : 'closed'.tr),
               ]),
               SizedBox(height: 24),
-              _buildSectionTitle('Prerequisites'),
+              _buildSectionTitle('prerequisites'.tr),
               Obx(() {
                 if (controller.isLoading.value) {
                   return Center(
@@ -59,7 +59,7 @@ class CourseDetailView extends GetView<CourseController> {
                       padding: EdgeInsets.all(16),
                       child: Center(
                         child: Text(
-                          'No prerequisites for this course',
+                          'no_prerequisites'.tr,
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
@@ -98,7 +98,7 @@ class CourseDetailView extends GetView<CourseController> {
                             ),
                           ),
                           subtitle: Text(
-                            'Code: ${prereq.courseCode}',
+                            '${'code'.tr}: ${prereq.courseCode}',
                           ),
                         );
                       }).toList(),
@@ -143,7 +143,7 @@ class CourseDetailView extends GetView<CourseController> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
-              'Code: $code',
+              '${'code'.tr}: $code',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,

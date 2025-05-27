@@ -30,8 +30,8 @@ class MarkController extends GetxController {
       myMarks.assignAll(marks);
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load marks',
+        'error'.tr,
+        'failed_to_load_marks'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -52,8 +52,8 @@ class MarkController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load semester GPA',
+        'error'.tr,
+        'failed_to_load_semester_gpa'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -74,8 +74,8 @@ class MarkController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load cumulative GPA',
+        'error'.tr,
+        'failed_to_load_cumulative_gpa'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {

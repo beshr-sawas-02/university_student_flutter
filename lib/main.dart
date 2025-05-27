@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:university_student_application/app/modules/language_controller.dart';
+import 'package:university_student_application/app/modules/theme_controller.dart';
 import 'package:university_student_application/lang/translations.dart';
 import 'app/routes/app_pages.dart';
 import 'app/utils/theme.dart';
@@ -17,10 +18,12 @@ void main() async {
 Future<void> initServices() async {
   await Get.putAsync(() => StorageProvider().init());
   Get.put(LanguageController());
+  Get.put(ThemeController());
 }
 
 class MyApp extends StatelessWidget {
   final LanguageController languageController = Get.find<LanguageController>();
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
           fallbackLocale: const Locale('en'),
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.light,
+          themeMode: themeController.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
         ),

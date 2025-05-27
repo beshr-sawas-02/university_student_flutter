@@ -1,4 +1,3 @@
-// lib/app/modules/auth/controllers/auth_controller.dart (updated version)
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/repositories/auth_repository.dart';
@@ -19,12 +18,11 @@ class AuthController extends GetxController {
   // Register-only Controllers
   final TextEditingController nameController = TextEditingController();
   final TextEditingController majorController = TextEditingController();
-   Rx<int> selectedYear = 1.obs; // default year
+  Rx<int> selectedYear = 1.obs;
 
   @override
   void onInit() {
     super.onInit();
-    // We'll use onReady instead of onInit for navigation
     ever(currentStudent, (_) => _checkUser());
     _initializeUser();
   }
@@ -32,20 +30,23 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    // Check login status in onReady which is called after the widget is built
-    if (_storageProvider.isLoggedIn() && currentStudent.value != null) {
-      Future.delayed(Duration(milliseconds: 100), () {
-        Get.offAllNamed(Routes.DASHBOARD);
-      });
+
+    // فقط إذا كنا في شاشة تسجيل الدخول نعيد التوجيه إلى لوحة التحكم
+    if (Get.currentRoute == Routes.LOGIN) {
+      if (_storageProvider.isLoggedIn() && currentStudent.value != null) {
+        Future.delayed(Duration(milliseconds: 100), () {
+          Get.offAllNamed(Routes.DASHBOARD);
+        });
+      }
     }
   }
 
   @override
   void onClose() {
-    // universityIdController.dispose();
-    // passwordController.dispose();
     nameController.dispose();
     majorController.dispose();
+    universityIdController.dispose();
+    passwordController.dispose();
     super.onClose();
   }
 
@@ -57,7 +58,7 @@ class AuthController extends GetxController {
 
   void _checkUser() {
     if (currentStudent.value != null) {
-      // User data is available, but we'll navigate in onReady
+      // User data is available
     }
   }
 
@@ -66,10 +67,10 @@ class AuthController extends GetxController {
 
     try {
       final universityId = universityIdController.text;
-      if (universityId == null) {
+      if (universityId.isEmpty) {
         Get.snackbar(
-          'Error',
-          'Please enter a valid university ID',
+          'error_title'.tr,
+          'login_invalid_id'.tr,
           snackPosition: SnackPosition.BOTTOM,
         );
         isLoading.value = false;
@@ -82,19 +83,19 @@ class AuthController extends GetxController {
       );
 
       if (success) {
-        currentStudent.value = _storageProvider.getUser();
+        await getProfile();
         Get.offAllNamed(Routes.DASHBOARD);
       } else {
         Get.snackbar(
-          'Login Failed',
-          'Please check your credentials and try again',
+          'login_failed_title'.tr,
+          'login_failed_message'.tr,
           snackPosition: SnackPosition.BOTTOM,
         );
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'An error occurred during login',
+        'error_title'.tr,
+        'login_error'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -112,10 +113,10 @@ class AuthController extends GetxController {
       final universityId = universityIdController.text.trim();
       final password = passwordController.text.trim();
 
-      if (name.isEmpty || major.isEmpty  || universityId.isEmpty || password.isEmpty) {
+      if (name.isEmpty || major.isEmpty || universityId.isEmpty || password.isEmpty) {
         Get.snackbar(
-          'Error',
-          'Please fill all the fields',
+          'error_title'.tr,
+          'register_fill_fields'.tr,
           snackPosition: SnackPosition.BOTTOM,
         );
         isLoading.value = false;
@@ -123,31 +124,31 @@ class AuthController extends GetxController {
       }
 
       final success = await _authRepository.register(
-        name: nameController.text,
-        major: majorController.text,
-        year: selectedYear.value,
-        universityId: universityIdController.text,
-        password: passwordController.text,
+        name: name,
+        major: major,
+        year: year,
+        universityId: universityId,
+        password: password,
       );
 
       if (success) {
         Get.snackbar(
-          'Success',
-          'Account created successfully! Please login.',
+          'success_title'.tr,
+          'register_success_message'.tr,
           snackPosition: SnackPosition.BOTTOM,
         );
         Get.offAllNamed(Routes.LOGIN);
       } else {
         Get.snackbar(
-          'Registration Failed',
-          'Please check your inputs and try again.',
+          'register_failed_title'.tr,
+          'register_failed_message'.tr,
           snackPosition: SnackPosition.BOTTOM,
         );
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'An error occurred during registration',
+        'error_title'.tr,
+        'register_error'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -164,8 +165,8 @@ class AuthController extends GetxController {
       Get.offAllNamed(Routes.LOGIN);
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'An error occurred during logout',
+        'error_title'.tr,
+        'logout_error'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -184,8 +185,8 @@ class AuthController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
-        'Failed to load profile',
+        'error_title'.tr,
+        'profile_load_error'.tr,
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -193,20 +194,15 @@ class AuthController extends GetxController {
     }
   }
 
-  // Helper for GPA API calls
   Future<Map<String, dynamic>?> getSemesterGPA(int year, int semester) async {
     final studentId = currentStudent.value?.id;
     if (studentId == null) return null;
-
     return await _authRepository.getSemesterGPA(studentId, year, semester);
   }
 
   Future<Map<String, dynamic>?> getCumulativeGPA() async {
-
     final studentId = currentStudent.value?.id;
     if (studentId == null) return null;
-
     return await _authRepository.getCumulativeGPA(studentId);
-
   }
 }

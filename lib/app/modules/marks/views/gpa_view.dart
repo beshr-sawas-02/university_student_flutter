@@ -1,4 +1,3 @@
-// lib/app/modules/marks/views/gpa_view.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/mark_controller.dart';
@@ -9,12 +8,11 @@ class GpaView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Trigger GPA calculation on page load
     controller.fetchCumulativeGPA();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('My GPA'),
+        title: Text('my_gpa'.tr),
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
       ),
@@ -44,7 +42,7 @@ class GpaView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Cumulative GPA',
+              'cumulative_gpa'.tr,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -54,9 +52,7 @@ class GpaView extends StatelessWidget {
             SizedBox(height: 20),
             Obx(() {
               if (controller.isLoading.value) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return Center(child: CircularProgressIndicator());
               }
 
               final cumulativeGPA = controller.cumulativeGPA;
@@ -115,11 +111,8 @@ class GpaView extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'out of 4.0',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
+                    'out_of'.tr,
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
               ),
@@ -128,7 +121,7 @@ class GpaView extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          'GPA',
+          'gpa'.tr,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -166,7 +159,7 @@ class GpaView extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          'Credits',
+          'credits'.tr,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -182,7 +175,7 @@ class GpaView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Semester GPA',
+          'semester_gpa'.tr,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -212,7 +205,7 @@ class GpaView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Select Year',
+              'select_year'.tr,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -231,20 +224,14 @@ class GpaView extends StatelessWidget {
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 10),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         color: selectedYear.value == year ? AppTheme.secondaryColor : Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: AppTheme.secondaryColor,
-                          width: 1,
-                        ),
+                        border: Border.all(color: AppTheme.secondaryColor),
                       ),
                       child: Text(
-                        'Year $year',
+                        '${'year'.tr} $year',
                         style: TextStyle(
                           color: selectedYear.value == year ? Colors.white : AppTheme.secondaryColor,
                           fontWeight: FontWeight.bold,
@@ -257,7 +244,7 @@ class GpaView extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Select Semester',
+              'select_semester'.tr,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -274,20 +261,14 @@ class GpaView extends StatelessWidget {
                   },
                   child: Container(
                     margin: EdgeInsets.only(right: 10),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
                       color: selectedSemester.value == semester ? AppTheme.secondaryColor : Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: AppTheme.secondaryColor,
-                        width: 1,
-                      ),
+                      border: Border.all(color: AppTheme.secondaryColor),
                     ),
                     child: Text(
-                      'Semester $semester',
+                      '${'semester'.tr} $semester',
                       style: TextStyle(
                         color: selectedSemester.value == semester ? Colors.white : AppTheme.secondaryColor,
                         fontWeight: FontWeight.bold,
@@ -315,7 +296,7 @@ class GpaView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Obx(() => Text(
-              'Year ${selectedYear.value}, Semester ${selectedSemester.value}',
+              '${'year'.tr} ${selectedYear.value}, ${'semester'.tr} ${selectedSemester.value}',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -325,9 +306,7 @@ class GpaView extends StatelessWidget {
             SizedBox(height: 20),
             Obx(() {
               if (controller.isLoading.value) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return Center(child: CircularProgressIndicator());
               }
 
               final semesterGPA = controller.semesterGPA;
@@ -337,11 +316,8 @@ class GpaView extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
                     child: Text(
-                      'No data available for this semester',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
+                      'no_data_semester'.tr,
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                   ),
                 );
@@ -363,7 +339,7 @@ class GpaView extends StatelessWidget {
                   SizedBox(height: 20),
                   if (courses.isNotEmpty) ...[
                     Text(
-                      'Courses',
+                      'courses'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -381,15 +357,13 @@ class GpaView extends StatelessWidget {
                           contentPadding: EdgeInsets.zero,
                           title: Text(
                             course['name'] ?? '',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text(
-                            'Code: ${course['courseCode'] ?? ''}',
+                            '${'code'.tr}: ${course['courseCode'] ?? ''}',
                           ),
                           trailing: Text(
-                            'Grade: ${controller.getLetterGrade(course['mark']?.toDouble() ?? 0.0)}',
+                            '${'grade'.tr}: ${controller.getLetterGrade(course['mark']?.toDouble() ?? 0.0)}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: controller.getGradeColor(course['mark']?.toDouble() ?? 0.0),

@@ -11,14 +11,14 @@ class CreateVoteView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Course Voting'),
+        title: Text('course_voting'.tr),
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
         actions: [
           IconButton(
             icon: Icon(Icons.history),
             onPressed: () => Get.toNamed('/my-votes'),
-            tooltip: 'Voting History',
+            tooltip: 'voting_history'.tr,
           ),
         ],
       ),
@@ -39,7 +39,7 @@ class CreateVoteView extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'No courses available for voting',
+                  'no_courses_available'.tr,
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey,
@@ -48,7 +48,7 @@ class CreateVoteView extends StatelessWidget {
                 SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => controller.fetchAvailableCourses(),
-                  child: Text('Refresh'),
+                  child: Text('refresh'.tr),
                 ),
               ],
             ),
@@ -76,7 +76,7 @@ class CreateVoteView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Course Selection',
+            'course_selection'.tr,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -85,7 +85,7 @@ class CreateVoteView extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text(
-            'Please select 4-6 courses you would like to take',
+            'select_4_6_courses'.tr,
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[700],
@@ -93,7 +93,10 @@ class CreateVoteView extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Obx(() => Text(
-            'Selected: ${controller.selectedCourseIds.length} / 6',
+            'selected_count'.trArgs([
+              controller.selectedCourseIds.length.toString(),
+              '6',
+            ]),
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -122,7 +125,8 @@ class CreateVoteView extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
               side: BorderSide(
-                color: isSelected ? AppTheme.secondaryColor : Colors.transparent,
+                color:
+                isSelected ? AppTheme.secondaryColor : Colors.transparent,
                 width: 2,
               ),
             ),
@@ -135,7 +139,8 @@ class CreateVoteView extends StatelessWidget {
                   children: [
                     Checkbox(
                       value: isSelected,
-                      onChanged: (_) => controller.toggleCourseSelection(course.id!),
+                      onChanged: (_) =>
+                          controller.toggleCourseSelection(course.id!),
                       activeColor: AppTheme.secondaryColor,
                     ),
                     SizedBox(width: 8),
@@ -153,7 +158,7 @@ class CreateVoteView extends StatelessWidget {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            'Code: ${course.courseCode}',
+                            'course_code'.trArgs([course.courseCode ?? '']),
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
@@ -161,7 +166,7 @@ class CreateVoteView extends StatelessWidget {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            'Instructor: ${course.teacher}',
+                            'instructor:'.trArgs([course.teacher ?? '']),
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
@@ -194,7 +199,8 @@ class CreateVoteView extends StatelessWidget {
         ],
       ),
       child: Obx(() => ElevatedButton(
-        onPressed: controller.selectedCourseIds.length < 4 || controller.isLoading.value
+        onPressed: controller.selectedCourseIds.length < 4 ||
+            controller.isLoading.value
             ? null
             : () => _submitVote(),
         style: ElevatedButton.styleFrom(
@@ -203,7 +209,7 @@ class CreateVoteView extends StatelessWidget {
         child: controller.isLoading.value
             ? CircularProgressIndicator(color: Colors.white)
             : Text(
-          'SUBMIT VOTE',
+          'submit_vote'.tr,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -216,12 +222,12 @@ class CreateVoteView extends StatelessWidget {
   void _submitVote() {
     Get.dialog(
       AlertDialog(
-        title: Text('Confirm Vote'),
-        content: Text('Are you sure you want to submit your vote for these courses?'),
+        title: Text('confirm_vote'.tr),
+        content: Text('confirm_vote_message'.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: Text('CANCEL'),
+            child: Text('cancel'.tr),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -231,7 +237,7 @@ class CreateVoteView extends StatelessWidget {
                 Get.toNamed('/my-votes');
               }
             },
-            child: Text('CONFIRM'),
+            child: Text('confirm'.tr),
           ),
         ],
       ),

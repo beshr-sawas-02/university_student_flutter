@@ -27,9 +27,9 @@ class StorageProvider extends GetxService {
 
   // User Data Management
   Student? getUser() {
-    final userData = _box.read<Map<String, dynamic>>(_userKey);
+    final userData = _box.read(_userKey);
     if (userData != null) {
-      return Student.fromJson(userData);
+      return Student.fromJson(Map<String, dynamic>.from(userData));
     }
     return null;
   }

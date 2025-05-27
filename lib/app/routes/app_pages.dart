@@ -42,6 +42,11 @@ class AppPages {
       binding: AuthBinding(),
     ),
     GetPage(
+      name: '/profile',
+      page: () => ProfileView(),
+      binding: AuthBinding(),  // أو binding مناسب، أو تركها بدون binding إذا ليس مطلوب
+    ),
+    GetPage(
       name: Routes.DASHBOARD,
       page: () => DashboardView(),
       binding: DashboardBinding(),
