@@ -42,7 +42,7 @@ class LoginView extends GetView<AuthController> {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'University App',
+                  'login_app_title'.tr,
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -67,7 +67,7 @@ class LoginView extends GetView<AuthController> {
                   child: Column(
                     children: [
                       Text(
-                        'Student Login',
+                        'login_student_login'.tr,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class LoginView extends GetView<AuthController> {
                         controller: controller.universityIdController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'University ID',
+                          labelText: 'login_university_id'.tr,
                           prefixIcon: Icon(Icons.badge),
                         ),
                       ),
@@ -88,25 +88,25 @@ class LoginView extends GetView<AuthController> {
                         controller: controller.passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: 'Password',
+                          labelText: 'login_password'.tr,
                           prefixIcon: Icon(Icons.lock),
                         ),
                       ),
                       SizedBox(height: 30),
                       Obx(() => ElevatedButton(
-                            onPressed: controller.isLoading.value
-                                ? null
-                                : () => controller.login(),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(double.infinity, 50),
-                            ),
-                            child: controller.isLoading.value
-                                ? CircularProgressIndicator(color: Colors.white)
-                                : Text(
-                                    'LOGIN',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                          )),
+                        onPressed: controller.isLoading.value
+                            ? null
+                            : () => controller.login(),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                        child: controller.isLoading.value
+                            ? CircularProgressIndicator(color: Colors.white)
+                            : Text(
+                          'login_button'.tr,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      )),
                     ],
                   ),
                 ),
@@ -118,7 +118,7 @@ class LoginView extends GetView<AuthController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Contact administration for account issues',
+                        'login_contact_admin'.tr,
                         style: TextStyle(
                           color: AppTheme.secondaryColor,
                         ),
@@ -128,7 +128,7 @@ class LoginView extends GetView<AuthController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Don't have an account? ",
+                            'login_no_account'.tr,
                             style: TextStyle(
                               color: AppTheme.secondaryColor,
                             ),
@@ -136,7 +136,7 @@ class LoginView extends GetView<AuthController> {
                           TextButton(
                             onPressed: () => Get.toNamed(Routes.REGISTER),
                             child: Text(
-                              'Register',
+                              'login_register'.tr,
                               style: TextStyle(
                                 color: AppTheme.secondaryColor,
                                 decoration: TextDecoration.underline,
@@ -148,7 +148,6 @@ class LoginView extends GetView<AuthController> {
                     ],
                   ),
                 ),
-
               ],
             ),
           ),

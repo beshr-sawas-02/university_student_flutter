@@ -1,6 +1,6 @@
-// lib/app/modules/dashboard/views/dashboard_view.dart (updated)
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_student_application/app/modules/language_controller.dart';
 import '../controllers/dashboard_controller.dart';
 import '../../courses/views/available_courses_view.dart';
 import '../../marks/views/marks_view.dart';
@@ -12,9 +12,6 @@ import '../../auth/controllers/auth_controller.dart';
 class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
-    // Don't put controller here, use the binding instead
-    // This was causing the issue
-
     final List<Widget> _pages = [
       _buildHomeTab(),
       AvailableCoursesView(),
@@ -34,26 +31,24 @@ class DashboardView extends GetView<DashboardController> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'nav.home'.tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Courses',
+            label: 'nav.courses'.tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.grade),
-            label: 'Marks',
+            label: 'nav.marks'.tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.how_to_vote),
-            label: 'Voting',
+            label: 'nav.voting'.tr,
           ),
         ],
       )),
     );
   }
-
-  // Rest of the code remains the same...
 
   Widget _buildHomeTab() {
     return SafeArea(
@@ -89,19 +84,29 @@ class DashboardView extends GetView<DashboardController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Obx(() => Text(
-                'Hello, ${controller.student.value?.name ?? "Student"}',
+                '${'dashboard.hello'.tr} ${controller.student.value?.name ?? "Student"}',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               )),
-              IconButton(
-                icon: Icon(Icons.logout, color: Colors.white),
-                onPressed: () {
-                  Get.find<AuthController>().logout();
-                },
-              ),
+              Row(children: [
+                IconButton(
+                  icon: Icon(Icons.language, color: Colors.white),
+                  onPressed: () {
+                    final currentLang = Get.locale?.languageCode ?? 'en';
+                    final newLang = currentLang == 'ar' ? 'en' : 'ar';
+                    Get.find<LanguageController>().changeLanguage(newLang);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.logout, color: Colors.white),
+                  onPressed: () {
+                    Get.find<AuthController>().logout();
+                  },
+                ),
+              ]),
             ],
           ),
           SizedBox(height: 10),
@@ -124,7 +129,7 @@ class DashboardView extends GetView<DashboardController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Quick Access',
+            'dashboard.quick_access'.tr,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -141,29 +146,29 @@ class DashboardView extends GetView<DashboardController> {
             mainAxisSpacing: 16,
             children: [
               _buildDashboardCard(
-                title: 'Courses',
-                subtitle: 'View your courses',
+                title: 'dashboard.courses'.tr,
+                subtitle: 'dashboard.view_courses'.tr,
                 icon: Icons.book,
                 color: Colors.blue,
                 onTap: () => controller.changeTab(1),
               ),
               _buildDashboardCard(
-                title: 'Marks',
-                subtitle: 'Check your grades',
+                title: 'dashboard.marks'.tr,
+                subtitle: 'dashboard.check_grades'.tr,
                 icon: Icons.grade,
                 color: Colors.orange,
                 onTap: () => controller.changeTab(2),
               ),
               _buildDashboardCard(
-                title: 'Vote',
-                subtitle: 'Choose your courses',
+                title: 'dashboard.vote'.tr,
+                subtitle: 'dashboard.choose_courses'.tr,
                 icon: Icons.how_to_vote,
                 color: Colors.green,
                 onTap: () => controller.changeTab(3),
               ),
               _buildDashboardCard(
-                title: 'GPA',
-                subtitle: 'View your GPA',
+                title: 'dashboard.gpa'.tr,
+                subtitle: 'dashboard.view_gpa'.tr,
                 icon: Icons.assessment,
                 color: Colors.purple,
                 onTap: () => Get.toNamed('/gpa'),
@@ -248,7 +253,7 @@ class DashboardView extends GetView<DashboardController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Your GPA',
+            'dashboard.your_gpa'.tr,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -269,12 +274,12 @@ class DashboardView extends GetView<DashboardController> {
               children: [
                 _buildGpaIndicator(
                   value: gpa.toDouble(),
-                  title: 'GPA',
+                  title: 'dashboard.gpa'.tr,
                   max: 4.0,
                 ),
                 _buildCreditIndicator(
                   value: credits,
-                  title: 'Credits',
+                  title: 'dashboard.credits'.tr,
                 ),
               ],
             );
@@ -284,7 +289,7 @@ class DashboardView extends GetView<DashboardController> {
             child: TextButton(
               onPressed: () => Get.toNamed('/gpa'),
               child: Text(
-                'View Detailed GPA',
+                'dashboard.detailed_gpa'.tr,
                 style: TextStyle(color: AppTheme.secondaryColor),
               ),
             ),
@@ -336,7 +341,7 @@ class DashboardView extends GetView<DashboardController> {
                   ),
                 ),
                 Text(
-                  'out of $max',
+                  '${'dashboard.out_of'.tr} $max',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey,
